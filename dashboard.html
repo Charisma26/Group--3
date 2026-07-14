@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Internet Connectivity Tracker — Demonstration Dashboard</title>
+  <style>
+    :root { --ink:#132238; --muted:#617087; --paper:#f5f8fc; --card:#fff; --blue:#1769aa; --sky:#4ca6d9; --teal:#168978; --amber:#e99b20; --red:#c94d4d; --line:#dbe4ef; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.45 Inter, system-ui, -apple-system, Segoe UI, sans-serif; }
+    header { background:linear-gradient(112deg,#0d355e,#1769aa); color:#fff; padding:34px max(24px,calc((100vw - 1180px)/2)); }
+    h1 { margin:0; font-size:clamp(1.65rem,3vw,2.4rem); letter-spacing:-.03em; }
+    header p { margin:8px 0 0; max-width:750px; opacity:.9; }
+    main { max-width:1180px; margin:0 auto; padding:28px 24px 44px; }
+    .notice { border-left:4px solid var(--amber); background:#fff8e8; padding:10px 13px; color:#705116; border-radius:4px; margin-bottom:22px; }
+    .period { color:var(--muted); margin:0 0 18px; }
+    .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px; }
+    .metric,.panel { background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:0 2px 8px #1528420b; }
+    .metric { padding:17px; }
+    .metric .value { display:block; font-size:2rem; font-weight:750; line-height:1.05; color:var(--blue); }
+    .metric .label { color:var(--muted); display:block; margin-top:5px; font-size:.9rem; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .panel { padding:20px; min-width:0; }
+    .wide { grid-column:1 / -1; }
+    h2 { margin:0 0 4px; font-size:1.08rem; }
+    .sub { color:var(--muted); font-size:.88rem; margin:0 0 15px; }
+    svg { display:block; width:100%; height:auto; overflow:visible; }
+    .chart-label { fill:#56677c; font-size:12px; }
+    .axis { stroke:#dbe4ef; stroke-width:1; }
+    .bar { fill:var(--blue); }
+    .bar2 { fill:var(--teal); }
+    .bar3 { fill:var(--sky); }
+    .value { fill:#132238; font-size:12px; font-weight:650; }
+    table { border-collapse:collapse; width:100%; font-size:.92rem; }
+    th,td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-size:.77rem; text-transform:uppercase; letter-spacing:.045em; }
+    .pill { display:inline-block; border-radius:999px; padding:3px 9px; font-size:.78rem; font-weight:650; }
+    .critical { color:#922f2f; background:#fde8e8; } .high { color:#865500; background:#fff1d5; } .review { color:#176151; background:#e1f4ef; }
+    .insight { display:grid; grid-template-columns:28px 1fr; gap:10px; background:#eff7ff; border-radius:8px; padding:12px; margin-top:15px; }
+    .insight b { font-size:1.2rem; color:var(--blue); } .insight p { margin:0; color:#324b68; }
+    footer { color:var(--muted); font-size:.82rem; margin-top:22px; }
+    @media (max-width:760px) { .metrics { grid-template-columns:repeat(2,1fr); } .grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Internet Connectivity Tracker</h1>
+    <p>Student-generated evidence for more reliable campus connectivity at Daystar University.</p>
+  </header>
+  <main>
+    <div class="notice"><strong>Demonstration only:</strong> all figures below use the fictional data in <code>database/seed_data.sql</code>. This is not a live dashboard or a claim about actual Daystar service quality.</div>
+    <p class="period">Reporting period: 24–29 June 2026 · Last refreshed: demonstration data</p>
+
+    <section class="metrics" aria-label="Key metrics">
+      <article class="metric"><span class="value">18</span><span class="label">Reports received</span></article>
+      <article class="metric"><span class="value">4</span><span class="label">Critical reports</span></article>
+      <article class="metric"><span class="value">8</span><span class="label">Reports resolved</span></article>
+      <article class="metric"><span class="value">1</span><span class="label">Confirmed duplicate</span></article>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Most frequent problems</h2>
+        <p class="sub">Count of reports by moderator-verified category</p>
+        <svg viewBox="0 0 500 245" role="img" aria-label="Horizontal bar chart: intermittent 6, outage 4, slow 4, login failure 2, weak coverage 2">
+          <g class="chart-label"><text x="0" y="32">Intermittent connection</text><text x="0" y="72">Complete outage</text><text x="0" y="112">Slow connection</text><text x="0" y="152">Login/portal failure</text><text x="0" y="192">Weak/no coverage</text></g>
+          <g class="axis"><line x1="185" y1="18" x2="185" y2="208"/><line x1="275" y1="18" x2="275" y2="208"/><line x1="365" y1="18" x2="365" y2="208"/><line x1="455" y1="18" x2="455" y2="208"/></g>
+          <g><rect class="bar" x="185" y="18" width="270" height="23" rx="4"/><rect class="bar" x="185" y="58" width="180" height="23" rx="4"/><rect class="bar" x="185" y="98" width="180" height="23" rx="4"/><rect class="bar" x="185" y="138" width="90" height="23" rx="4"/><rect class="bar" x="185" y="178" width="90" height="23" rx="4"/></g>
+          <g class="value"><text x="462" y="34">6</text><text x="372" y="74">4</text><text x="372" y="114">4</text><text x="282" y="154">2</text><text x="282" y="194">2</text></g>
+          <g class="chart-label"><text x="181" y="228">0</text><text x="267" y="228">2</text><text x="357" y="228">4</text><text x="447" y="228">6</text></g>
+        </svg>
+        <div class="insight"><b>→</b><p><strong>Intermittent connection</strong> is the leading problem (33.3%). Investigate access-point capacity and authentication events in the busiest zones.</p></div>
+      </article>
+
+      <article class="panel">
+        <h2>Locations most affected</h2>
+        <p class="sub">Reports by campus building / area</p>
+        <svg viewBox="0 0 500 245" role="img" aria-label="Horizontal bar chart: Agape Library Library Wing 6, Hope Centre Study Area 5, Amphitheater Entrance 3, Hostel A Common Room 3, Room B12 1">
+          <g class="chart-label"><text x="0" y="32">Agape Library — Library Wing</text><text x="0" y="72">Hope Centre — Study Area</text><text x="0" y="112">Amphitheater — Outside Entrance</text><text x="0" y="152">Hostel A — Common Room</text><text x="0" y="192">School of Business — Room B12</text></g>
+          <g class="axis"><line x1="230" y1="18" x2="230" y2="208"/><line x1="305" y1="18" x2="305" y2="208"/><line x1="380" y1="18" x2="380" y2="208"/><line x1="455" y1="18" x2="455" y2="208"/></g>
+          <g><rect class="bar2" x="230" y="18" width="225" height="23" rx="4"/><rect class="bar2" x="230" y="58" width="188" height="23" rx="4"/><rect class="bar2" x="230" y="98" width="113" height="23" rx="4"/><rect class="bar2" x="230" y="138" width="113" height="23" rx="4"/><rect class="bar2" x="230" y="178" width="38" height="23" rx="4"/></g>
+          <g class="value"><text x="462" y="34">6</text><text x="425" y="74">5</text><text x="350" y="114">3</text><text x="350" y="154">3</text><text x="275" y="194">1</text></g>
+          <g class="chart-label"><text x="226" y="228">0</text><text x="300" y="228">2</text><text x="375" y="228">4</text><text x="447" y="228">6</text></g>
+        </svg>
+        <div class="insight"><b>→</b><p><strong>Agape Library and Hope Centre</strong> account for 61.1% of all reports. They should be the first two inspection sites.</p></div>
+      </article>
+
+      <article class="panel wide">
+        <h2>Daily reporting trend</h2>
+        <p class="sub">All reports received per day; a short period is not enough to infer seasonality.</p>
+        <svg viewBox="0 0 1030 260" role="img" aria-label="Line chart from June 24 to June 29: 2, 3, 4, 2, 4, 3 reports">
+          <g class="axis"><line x1="70" y1="210" x2="990" y2="210"/><line x1="70" y1="162" x2="990" y2="162"/><line x1="70" y1="114" x2="990" y2="114"/><line x1="70" y1="66" x2="990" y2="66"/><line x1="70" y1="18" x2="990" y2="18"/></g>
+          <g class="chart-label"><text x="42" y="214">0</text><text x="42" y="166">1</text><text x="42" y="118">2</text><text x="42" y="70">3</text><text x="42" y="22">4</text><text x="90" y="238">24 Jun</text><text x="268" y="238">25 Jun</text><text x="448" y="238">26 Jun</text><text x="628" y="238">27 Jun</text><text x="808" y="238">28 Jun</text><text x="960" y="238">29 Jun</text></g>
+          <path d="M110 114 L290 66 L470 18 L650 114 L830 18 L980 66" fill="none" stroke="#1769aa" stroke-width="4" stroke-linejoin="round"/>
+          <g fill="#1769aa" stroke="#fff" stroke-width="3"><circle cx="110" cy="114" r="7"/><circle cx="290" cy="66" r="7"/><circle cx="470" cy="18" r="7"/><circle cx="650" cy="114" r="7"/><circle cx="830" cy="18" r="7"/><circle cx="980" cy="66" r="7"/></g>
+          <g class="value"><text x="104" y="100">2</text><text x="284" y="52">3</text><text x="464" y="40">4</text><text x="644" y="100">2</text><text x="824" y="40">4</text><text x="974" y="52">3</text></g>
+        </svg>
+      </article>
+
+      <article class="panel wide">
+        <h2>Urgent open reports for triage</h2>
+        <p class="sub">Filter: high/critical severity and status submitted or under review</p>
+        <table>
+          <thead><tr><th>Report</th><th>Location</th><th>Severity</th><th>Status</th><th>Reported</th></tr></thead>
+          <tbody>
+            <tr><td>#2</td><td>Hope Centre — Study Area</td><td><span class="pill high">High</span></td><td><span class="pill review">Under review</span></td><td>24 Jun, 12:25</td></tr>
+            <tr><td>#4</td><td>Hope Centre — Study Area</td><td><span class="pill high">High</span></td><td><span class="pill review">Submitted</span></td><td>25 Jun, 14:45</td></tr>
+            <tr><td>#6</td><td>Hostel A — Common Room</td><td><span class="pill high">High</span></td><td><span class="pill review">Under review</span></td><td>26 Jun, 08:35</td></tr>
+            <tr><td>#9</td><td>Amphitheater — Outside Entrance</td><td><span class="pill high">High</span></td><td><span class="pill review">Submitted</span></td><td>26 Jun, 19:20</td></tr>
+            <tr><td>#12</td><td>Hope Centre — Study Area</td><td><span class="pill high">High</span></td><td><span class="pill review">Under review</span></td><td>28 Jun, 09:10</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+    <footer>Data source for a live version: <code>vw_dashboard_location_category</code>, <code>vw_dashboard_daily_trends</code>, and Q1–Q6 in <code>database/analytics_queries.sql</code>.</footer>
+  </main>
+</body>
+</html>
